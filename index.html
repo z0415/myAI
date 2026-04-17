@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My AI Chat</title>
+</head>
+<body>
+
+<h1>My AI</h1>
+
+<input id="prompt" placeholder="Ask something..." size="50">
+<button onclick="send()">Send</button>
+
+<pre id="response"></pre>
+
+<script>
+async function send() {
+
+    const prompt = document.getElementById("prompt").value;
+
+    const response = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer sk-zyy_04fsghngfflm,wdawadsasge324431lihrfvny",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            prompt: prompt
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("response").innerText =
+        data.choices[0].message.content;
+}
+</script>
+
+</body>
+</html>
